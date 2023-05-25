@@ -6,12 +6,20 @@ pipeline {
         sh "docker build -t sunas/podinfo:${env.BUILD_NUMBER} ."
       }
     }
-    stage('Security scan') {
-      steps {
-        sh "npm install snyk@latest -g"
-        sh "snyk test"
-      }
-    }
+    stage('Test'){
+       steps {
+        sh "echo 'Test'"
+      }
+    }
+    stage('Security scan'){
+      steps {
+        withCredentials([string(credentialsId: 'snyk-api-token', variable: 'snykToken')]){
+        sh "snyk auth ${snykToken}"
+        sh "snyk test"
+        sh "snyk monitor --all-projects"
+        }
+      }
+    }
     stage('Docker Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
