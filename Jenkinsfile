@@ -4,7 +4,7 @@ pipeline {
   triggers {
     pollSCM '* * * * *'
   }
-  
+
   stages {
     stage('Build') {
       steps {
@@ -34,14 +34,14 @@ pipeline {
         }
       }
     }
-  //   stage('Deploy') {
-  //     steps {
-  //         withKubeConfig([credentialsId: 'kubeconfig']) {
-  //         sh 'cat deployment.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
-  //         sh 'kubectl apply -f service.yaml'
-  //       }
-  //     }
-  // }
+    stage('Deploy') {
+      steps {
+          withKubeConfig([credentialsId: 'kubeconfig']) {
+          sh 'cat deployment.yaml | sed "s/{{BUILD_NUMBER}}/$BUILD_NUMBER/g" | kubectl apply -f -'
+          sh 'kubectl apply -f service.yaml'
+        }
+      }
+  }
 }
 // post {
 //     success {

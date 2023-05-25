@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: podinfo
-        image: supaket/podinfo:{{BUILD_NUMBER}}
+        image: sunas/podinfo:{{BUILD_NUMBER}}
         imagePullPolicy: Always
         ports:
         - containerPort: 4444
