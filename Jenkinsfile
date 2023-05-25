@@ -6,7 +6,7 @@ pipeline {
         sh "docker build -t sunas/podinfo:${env.BUILD_NUMBER} ."
       }
     }
-    stage('Security scan'){
+    stage('Security scan') {
       steps {
         sh "npm install snyk@latest -g"
         sh "snyk test"
