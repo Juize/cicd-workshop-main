@@ -17,13 +17,19 @@ spec:
       volumes:
       - name: dind-storage
         emptyDir: {}
+      - name: jenkins-home
+        persistentVolumeClaim:
+          claimName: jenkins-pvc
       containers:
       - name: jenkins
-        image: supaket/jenkins:latest
+        image: sunas/jenkins:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 8080
         - containerPort: 50000
+        volumeMounts:
+        - name: jenkins-home
+          mountPath: /var/jenkins_home
         env:
         - name: DOCKER_HOST
           value: tcp://localhost:2375
