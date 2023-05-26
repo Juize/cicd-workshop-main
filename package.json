@@ -1,9 +1,11 @@
 {
 	"scripts": {
-		"test": "jest --detectOpenHandles"
+		"test": "jest --detectOpenHandles",
+		"report-test": "jest --ci --detectOpenHandles --reporters=default --reporters=jest-junit"
 	},
 	"devDependencies": {
 		"jest": "^29.5.0",
+		"jest-junit": "^16.0.0",
 		"supertest": "^6.3.3"
 	},
 	"dependencies": {
